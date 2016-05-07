@@ -1,0 +1,24 @@
+{
+  "name": "insult",
+  "version": "0.2.5",
+  "description": "An application that insults you",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.13.3",
+    "pug": "^2.0.0-alpha6"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "insult"
+  ],
+  "license": "MIT"
+}
