@@ -22,23 +22,53 @@ requirejs(['node_modules/ramda/dist/ramda'], function (R) {
 
     //Impure app code
     var insult_data = {
-        subjects: [{ part: 'You' }, { part: 'Your mother' }, { part: 'Your father' }],
-        verbs: ['smells like', 'is', 'consorts with'],
+        subjects: [{
+            part: 'You',
+            first_person: true
+        }, {
+            part: 'Your mother',
+            first_person: false
+        }, {
+            part: 'Your father',
+            first_person: false
+        }],
+        verbs: [{
+            first_person: 'smell like',
+            third_person: 'smells like'
+        }, {
+            first_person: 'are',
+            third_person: 'is'
+        }, {
+            first_person: 'consort with',
+            third_person: 'consorts with'
+        }],
         objects: ['a hamster', 'elderberries']
     };
 
     var subject_lens = R.lens(R.prop('subjects'), R.assoc('subject'));
 
+    var first_person_lens = R.lens(R.prop('subjects'), R.assoc('first_person'));
+
+    var subject = R.curry(function (subject_index, insult_data) {
+        return R.compose(R.omit(['subjects']), R.over(first_person_lens, R.compose(R.prop('first_person'), R.nth(subject_index))), R.over(subject_lens, R.compose(R.prop('part'), R.nth(subject_index))))(insult_data);
+    });
+
     var verb_lens = R.lens(R.prop('verbs'), R.assoc('verb'));
+
+    var verb = R.curry(function (verb_index, insult_data) {
+        return R.over(verb_lens, R.compose(R.ifElse(function () {
+            return insult_data.first_person;
+        }, R.prop('first_person'), R.prop('third_person')), R.nth(verb_index)))(insult_data);
+    });
 
     var object_lens = R.lens(R.prop('objects'), R.assoc('object'));
 
-    var subject = R.curry(function (subject_index, insult_data) {
-        return R.over(subject_lens, R.compose(R.prop('part'), R.nth(subject_index)))(insult_data);
+    var object = R.curry(function (object_index, insult_data) {
+        return R.over(object_lens, R.nth(object_index))(insult_data);
     });
 
     var insult_object = function insult_object(insult_data, subject_index, verb_index, object_index) {
-        return R.compose(R.over(object_lens, R.nth(object_index)), R.over(verb_lens, R.nth(verb_index)), subject(subject_index))(insult_data);
+        return R.compose(object(object_index), verb(verb_index), subject(subject_index))(insult_data);
     };
 
     //Impure app code

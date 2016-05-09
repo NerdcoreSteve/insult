@@ -1,3 +1,5 @@
+//TODO Your mother is elderberries!
+//TODO keyboard bindings
 requirejs([
     'node_modules/ramda/dist/ramda'
 ], function (R) {
@@ -23,14 +25,32 @@ requirejs([
     //Impure app code
     var insult_data = {
         subjects: [
-            {part: 'You'},
-            {part: 'Your mother'},
-            {part: 'Your father'},
+            {
+                part: 'You',
+                first_person: true
+            },
+            {
+                part: 'Your mother',
+                first_person: false
+            },
+            {
+                part: 'Your father',
+                first_person: false
+            },
         ],
         verbs: [
-            'smells like',
-            'is',
-            'consorts with',
+            {
+                first_person: 'smell like',
+                third_person: 'smells like'
+            },
+            {
+                first_person: 'are',
+                third_person: 'is'
+            },
+            {
+                first_person: 'consort with',
+                third_person: 'consorts with'
+            },
         ],
         objects: [
             'a hamster',
@@ -43,37 +63,61 @@ requirejs([
             R.prop('subjects'),
             R.assoc('subject'))
 
+    var first_person_lens =
+        R.lens(
+            R.prop('subjects'),
+            R.assoc('first_person'))
+
+    var subject = R.curry((subject_index, insult_data) =>
+        R.compose(
+            R.omit(['subjects']),
+            R.over(
+                first_person_lens,
+                R.compose(
+                    R.prop('first_person'),
+                    R.nth(subject_index))),
+            R.over(
+                subject_lens,
+                R.compose(
+                    R.prop('part'),
+                    R.nth(subject_index))))
+                        (insult_data))
+
     var verb_lens =
         R.lens(
             R.prop('verbs'),
             R.assoc('verb'))
+
+    var verb = R.curry((verb_index, insult_data) =>
+        R.over(
+            verb_lens,
+            R.compose(
+                R.ifElse(
+                    () => insult_data.first_person,
+                    R.prop('first_person'),
+                    R.prop('third_person')),
+                R.nth(verb_index)))
+                    (insult_data))
 
     var object_lens =
         R.lens(
             R.prop('objects'),
             R.assoc('object'))
 
-    var subject = R.curry((subject_index, insult_data) =>
+    var object = R.curry((object_index, insult_data) =>
         R.over(
-            subject_lens,
-            R.compose(
-                R.prop('part'),
-                R.nth(subject_index)))
-                    (insult_data))
+            object_lens,
+            R.nth(object_index))
+                (insult_data))
 
     var insult_object = (insult_data, subject_index, verb_index, object_index) =>
         R.compose(
-            R.over(
-                object_lens,
-                R.nth(object_index)),
-            R.over(
-                verb_lens,
-                R.nth(verb_index)),
+            object(object_index),
+            verb(verb_index),
             subject(subject_index))
                 (insult_data)
 
     //Impure app code
-    //TODO keyboard bindings
     document.querySelector('.insult-button').onclick = () =>
         document.querySelector('.insult').innerHTML =
             insult(
