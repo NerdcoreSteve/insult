@@ -1,5 +1,7 @@
 'use strict';
 
+//TODO Your mother is elderberries!
+//TODO keyboard bindings
 requirejs(['node_modules/ramda/dist/ramda'], function (R) {
     //Impure helpers
     var rand = R.curry(function (min, max) {
@@ -34,13 +36,16 @@ requirejs(['node_modules/ramda/dist/ramda'], function (R) {
         }],
         verbs: [{
             first_person: 'smell like',
-            third_person: 'smells like'
+            third_person: 'smells like',
+            plural: true
         }, {
             first_person: 'are',
-            third_person: 'is'
+            third_person: 'is',
+            plural: false
         }, {
             first_person: 'consort with',
-            third_person: 'consorts with'
+            third_person: 'consorts with',
+            plural: true
         }],
         objects: ['a hamster', 'elderberries']
     };
@@ -56,15 +61,15 @@ requirejs(['node_modules/ramda/dist/ramda'], function (R) {
     var verb_lens = R.lens(R.prop('verbs'), R.assoc('verb'));
 
     var verb = R.curry(function (verb_index, insult_data) {
-        return R.over(verb_lens, R.compose(R.ifElse(function () {
+        return R.compose(R.omit(['verbs']), R.assoc('plural', insult_data.verbs[verb_index].plural), R.over(verb_lens, R.compose(R.ifElse(function () {
             return insult_data.first_person;
-        }, R.prop('first_person'), R.prop('third_person')), R.nth(verb_index)))(insult_data);
+        }, R.prop('first_person'), R.prop('third_person')), R.nth(verb_index))))(insult_data);
     });
 
     var object_lens = R.lens(R.prop('objects'), R.assoc('object'));
 
     var object = R.curry(function (object_index, insult_data) {
-        return R.over(object_lens, R.nth(object_index))(insult_data);
+        return R.compose(tap, R.over(object_lens, R.nth(object_index)))(insult_data);
     });
 
     var insult_object = function insult_object(insult_data, subject_index, verb_index, object_index) {
@@ -72,7 +77,6 @@ requirejs(['node_modules/ramda/dist/ramda'], function (R) {
     };
 
     //Impure app code
-    //TODO keyboard bindings
     document.querySelector('.insult-button').onclick = function () {
         return document.querySelector('.insult').innerHTML = insult(insult_object(insult_data, rand(0, insult_data.subjects.length - 1), rand(0, insult_data.verbs.length - 1), rand(0, insult_data.objects.length - 1)));
     };

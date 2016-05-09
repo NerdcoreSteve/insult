@@ -41,15 +41,18 @@ requirejs([
         verbs: [
             {
                 first_person: 'smell like',
-                third_person: 'smells like'
+                third_person: 'smells like',
+                plural: true
             },
             {
                 first_person: 'are',
-                third_person: 'is'
+                third_person: 'is',
+                plural: false
             },
             {
                 first_person: 'consort with',
-                third_person: 'consorts with'
+                third_person: 'consorts with',
+                plural: true
             },
         ],
         objects: [
@@ -89,15 +92,18 @@ requirejs([
             R.assoc('verb'))
 
     var verb = R.curry((verb_index, insult_data) =>
-        R.over(
-            verb_lens,
-            R.compose(
-                R.ifElse(
-                    () => insult_data.first_person,
-                    R.prop('first_person'),
-                    R.prop('third_person')),
-                R.nth(verb_index)))
-                    (insult_data))
+        R.compose(
+            R.omit(['verbs']),
+            R.assoc('plural', insult_data.verbs[verb_index].plural),
+            R.over(
+                verb_lens,
+                R.compose(
+                    R.ifElse(
+                        () => insult_data.first_person,
+                        R.prop('first_person'),
+                        R.prop('third_person')),
+                    R.nth(verb_index))))
+                        (insult_data))
 
     var object_lens =
         R.lens(
@@ -105,10 +111,12 @@ requirejs([
             R.assoc('object'))
 
     var object = R.curry((object_index, insult_data) =>
-        R.over(
-            object_lens,
-            R.nth(object_index))
-                (insult_data))
+        R.compose(
+            tap,
+            R.over(
+                object_lens,
+                R.nth(object_index)))
+                    (insult_data))
 
     var insult_object = (insult_data, subject_index, verb_index, object_index) =>
         R.compose(
