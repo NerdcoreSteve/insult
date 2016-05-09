@@ -16,30 +16,34 @@ requirejs(['node_modules/ramda/dist/ramda'], function (R) {
         return R.compose(R.length, R.prop(property))(object);
     });
 
-    var insult = function insult(insult_data, insult_object) {
-        var subject = insult_data.subjects[insult_object.subject],
-            object = insult_data.objects[insult_object.object],
-            verb = insult_data.verbs[insult_object.verb];
-        return ' ' + subject + ' ' + verb + ' ' + object;
+    var insult = function insult(insult_object) {
+        return insult_object.subject + ' ' + insult_object.verb + ' ' + insult_object.object + '!';
     };
 
     //Impure app code
     var insult_data = {
-        subjects: ['You', 'Your mother', 'Your father'],
-        verbs: ['smells like', 'is a', 'consorts with'],
+        subjects: [{ part: 'You' }, { part: 'Your mother' }, { part: 'Your father' }],
+        verbs: ['smells like', 'is', 'consorts with'],
         objects: ['a hamster', 'elderberries']
     };
 
-    //TODO I can make this pure by returning a function that is impure
-    var rand_insult_data_el = function rand_insult_data_el(property) {
-        return rand(0, property_list_length(insult_data, property) - 1);
+    var subject_lens = R.lens(R.prop('subjects'), R.assoc('subject'));
+
+    var verb_lens = R.lens(R.prop('verbs'), R.assoc('verb'));
+
+    var object_lens = R.lens(R.prop('objects'), R.assoc('object'));
+
+    var subject = R.curry(function (subject_index, insult_data) {
+        return R.over(subject_lens, R.compose(R.prop('part'), R.nth(subject_index)))(insult_data);
+    });
+
+    var insult_object = function insult_object(insult_data, subject_index, verb_index, object_index) {
+        return R.compose(R.over(object_lens, R.nth(object_index)), R.over(verb_lens, R.nth(verb_index)), subject(subject_index))(insult_data);
     };
 
+    //Impure app code
+    //TODO keyboard bindings
     document.querySelector('.insult-button').onclick = function () {
-        return document.querySelector('.insult').innerHTML = insult(insult_data, {
-            subject: rand_insult_data_el('subjects'),
-            verb: rand_insult_data_el('verbs'),
-            object: rand_insult_data_el('objects')
-        });
+        return document.querySelector('.insult').innerHTML = insult(insult_object(insult_data, rand(0, insult_data.subjects.length - 1), rand(0, insult_data.verbs.length - 1), rand(0, insult_data.objects.length - 1)));
     };
 });
