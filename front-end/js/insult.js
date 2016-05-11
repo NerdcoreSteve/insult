@@ -1,14 +1,6 @@
 //TODO Your mother is elderberries!
-
 var R = require('ramda')
-var tap = require('./tap.js')
-
-var property_list_length = R.curry((object, property) =>
-    R.compose(
-        R.length,
-        R.prop(property))
-            (object))
-
+var property_list_length = require('./property_list_length.js')
 
 var subject_lens =
     R.lens(
@@ -61,7 +53,6 @@ var object_lens =
 
 var object = R.curry((object_index, insult_data) =>
     R.compose(
-        tap,
         R.over(
             object_lens,
             R.nth(object_index)))
