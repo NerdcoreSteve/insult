@@ -3,15 +3,7 @@
 'use strict';
 
 var R = require('ramda');
-var property_list_length = require('./property_list_length.js');
-
-var subject_lens = R.lens(R.prop('subjects'), R.assoc('subject'));
-
-var first_person_lens = R.lens(R.prop('subjects'), R.assoc('first_person'));
-
-var subject = R.curry(function (subject_index, insult_data) {
-    return R.compose(R.omit(['subjects']), R.over(first_person_lens, R.compose(R.prop('first_person'), R.nth(subject_index))), R.over(subject_lens, R.compose(R.prop('part'), R.nth(subject_index))))(insult_data);
-});
+var subject = require('./subject.js');
 
 var verb_lens = R.lens(R.prop('verbs'), R.assoc('verb'));
 
@@ -34,7 +26,7 @@ var insult = function insult(insult_data, subject_index, verb_index, object_inde
 };
 
 module.exports = insult;
-},{"./property_list_length.js":5,"ramda":4}],2:[function(require,module,exports){
+},{"./subject.js":6,"ramda":4}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -75,7 +67,7 @@ var insult_data = require('./insult_data');
 document.querySelector('.insult-button').onclick = function () {
     return document.querySelector('.insult').innerHTML = insult(insult_data, rand(0, insult_data.subjects.length - 1), rand(0, insult_data.verbs.length - 1), rand(0, insult_data.objects.length - 1));
 };
-},{"./insult":1,"./insult_data":2,"./rand.js":6}],4:[function(require,module,exports){
+},{"./insult":1,"./insult_data":2,"./rand.js":5}],4:[function(require,module,exports){
 //  Ramda v0.21.0
 //  https://github.com/ramda/ramda
 //  (c) 2013-2016 Scott Sauyet, Michael Hurley, and David Chambers
@@ -8866,15 +8858,19 @@ document.querySelector('.insult-button').onclick = function () {
 
 var R = require('ramda');
 
-module.exports = R.curry(function (object, property) {
-    return R.compose(R.length, R.prop(property))(object);
+module.exports = R.curry(function (min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 });
 },{"ramda":4}],6:[function(require,module,exports){
 'use strict';
 
 var R = require('ramda');
 
-module.exports = R.curry(function (min, max) {
-  return Math.round(Math.random() * (max - min) + min);
+var subject_lens = R.lens(R.prop('subjects'), R.assoc('subject'));
+
+var first_person_lens = R.lens(R.prop('subjects'), R.assoc('first_person'));
+
+module.exports = R.curry(function (subject_index, insult_data) {
+    return R.compose(R.omit(['subjects']), R.over(first_person_lens, R.compose(R.prop('first_person'), R.nth(subject_index))), R.over(subject_lens, R.compose(R.prop('part'), R.nth(subject_index))))(insult_data);
 });
 },{"ramda":4}]},{},[3]);
