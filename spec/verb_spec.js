@@ -1,27 +1,30 @@
 describe('subject', () => {  
-    /*
-    var subject = require('../front-end/js/subject.js')
+    var verb = require('../front-end/js/verb.js')
 
-    it('should return an object',
+    it('should leave the subject and first_person properties as they are',
         () => expect(
-            typeof subject(
+            verb(
                 0,
                 {
-                    subjects: [
+                    subject: 'Your potato',
+                    first_person: false,
+                    verbs: [
                         {
-                            part: 'You',
-                            first_person: true
+                            first_person: 'smell like',
+                            third_person: 'smells like',
+                            plural: true
                         },
                         {
-                            part: 'Your mother',
-                            first_person: false
+                            first_person: 'are',
+                            third_person: 'is',
+                            plural: false
                         },
                         {
-                            part: 'Your father',
-                            first_person: false
+                            first_person: 'consort with',
+                            third_person: 'consorts with',
+                            plural: true
                         },
                     ]
-                }))
-                    .toEqual('object'))
-    */
+                }).subject)
+                    .toEqual('Your potato'))
 })

@@ -1,26 +1,27 @@
 describe('subject', () => {  
     var subject = require('../front-end/js/subject.js')
+    var insult_data = {
+        subjects: [
+            {
+                part: 'You',
+                first_person: true
+            },
+            {
+                part: 'Your mother',
+                first_person: false
+            },
+            {
+                part: 'Your father',
+                first_person: false
+            },
+        ]
+    }
 
     it('should return an object',
         () => expect(
             typeof subject(
                 0,
-                {
-                    subjects: [
-                        {
-                            part: 'You',
-                            first_person: true
-                        },
-                        {
-                            part: 'Your mother',
-                            first_person: false
-                        },
-                        {
-                            part: 'Your father',
-                            first_person: false
-                        },
-                    ]
-                }))
+                insult_data))
                     .toEqual('object'))
 
     it('should add a "subject" property who\'s value is a string',
