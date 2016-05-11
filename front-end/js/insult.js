@@ -1,38 +1,8 @@
 //TODO Your mother is elderberries!
 var R = require('ramda')
 var subject = require('./subject.js')
-
-
-var verb_lens =
-    R.lens(
-        R.prop('verbs'),
-        R.assoc('verb'))
-
-var verb = R.curry((verb_index, insult_data) =>
-    R.compose(
-        R.omit(['verbs']),
-        R.assoc('plural', insult_data.verbs[verb_index].plural),
-        R.over(
-            verb_lens,
-            R.compose(
-                R.ifElse(
-                    () => insult_data.first_person,
-                    R.prop('first_person'),
-                    R.prop('third_person')),
-                R.nth(verb_index))))
-                    (insult_data))
-
-var object_lens =
-    R.lens(
-        R.prop('objects'),
-        R.assoc('object'))
-
-var object = R.curry((object_index, insult_data) =>
-    R.compose(
-        R.over(
-            object_lens,
-            R.nth(object_index)))
-                (insult_data))
+var verb = require('./verb.js')
+var object = require('./object.js')
 
 var insult = (insult_data, subject_index, verb_index, object_index) =>
     R.compose(
