@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "babel front-end/js -d public/js"
+    "build": "./build.sh"
   },
   "dependencies": {
     "express": "4.13.3",
