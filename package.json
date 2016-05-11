@@ -6,9 +6,6 @@
     "node": "5.9.1"
   },
   "main": "index.js",
-  "scripts": {
-    "build": "./build.sh"
-  },
   "dependencies": {
     "express": "4.13.3",
     "pug": "^2.0.0-alpha6"

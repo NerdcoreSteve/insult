@@ -1,7 +1,7 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 //TODO Your mother is elderberries!
+
+'use strict';
 
 var R = require('ramda');
 var tap = require('./tap.js');
@@ -39,13 +39,10 @@ var insult = function insult(insult_data, subject_index, verb_index, object_inde
 };
 
 module.exports = insult;
-},{"./tap.js":5,"ramda":3}],2:[function(require,module,exports){
+},{"./tap.js":6,"ramda":4}],2:[function(require,module,exports){
 'use strict';
 
-var insult = require('./insult');
-var rand = require('./rand.js');
-
-var insult_data = {
+module.exports = {
     subjects: [{
         part: 'You',
         first_person: true
@@ -71,13 +68,19 @@ var insult_data = {
     }],
     objects: ['a hamster', 'elderberries']
 };
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var insult = require('./insult');
+var rand = require('./rand.js');
+var insult_data = require('./insult_data');
 
 //Impure app code
 //TODO keyboard bindings
 document.querySelector('.insult-button').onclick = function () {
     return document.querySelector('.insult').innerHTML = insult(insult_data, rand(0, insult_data.subjects.length - 1), rand(0, insult_data.verbs.length - 1), rand(0, insult_data.objects.length - 1));
 };
-},{"./insult":1,"./rand.js":4}],3:[function(require,module,exports){
+},{"./insult":1,"./insult_data":2,"./rand.js":5}],4:[function(require,module,exports){
 //  Ramda v0.21.0
 //  https://github.com/ramda/ramda
 //  (c) 2013-2016 Scott Sauyet, Michael Hurley, and David Chambers
@@ -8863,7 +8866,7 @@ document.querySelector('.insult-button').onclick = function () {
 
 }.call(this));
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var R = require('ramda');
@@ -8871,11 +8874,11 @@ var R = require('ramda');
 module.exports = R.curry(function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 });
-},{"ramda":3}],5:[function(require,module,exports){
+},{"ramda":4}],6:[function(require,module,exports){
 "use strict";
 
 module.exports = function (x) {
     console.log(x);
     return x;
 };
-},{}]},{},[2])
+},{}]},{},[3]);
