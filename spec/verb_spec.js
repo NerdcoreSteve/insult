@@ -36,9 +36,6 @@ describe('verb', () => {
     it('should leave the first_person property alone',
         () => expect(verb(0, insult_data_third_person).first_person).toEqual(false))
 
-    it('should leave the first_person property alone',
-        () => expect(verb(0, insult_data_third_person).first_person).toEqual(false))
-
     it('should add a "verb" property who\'s value is a string',
         () => expect(typeof verb(0, insult_data_third_person).verb).toEqual('string'))
 

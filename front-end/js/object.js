@@ -7,6 +7,7 @@ var object_lens =
 
 module.exports = R.curry((object_index, insult_data) =>
     R.compose(
+        R.omit(['objects']),
         R.over(
             object_lens,
             R.nth(object_index)))
