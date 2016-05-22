@@ -12,6 +12,10 @@ module.exports = {
             part: 'Your father',
             first_person: false
         },
+        {
+            part: 'Your face',
+            first_person: false
+        }
     ],
     verbs: [
         {
@@ -28,10 +32,11 @@ module.exports = {
             first_person: 'consort with',
             third_person: 'consorts with',
             plural: true
-        },
+        }
     ],
     objects: [
         'a hamster',
-        'elderberries'
+        'elderberries',
+        'a smelly goat'
     ]
 }

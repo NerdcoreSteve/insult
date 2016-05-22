@@ -28,6 +28,9 @@ module.exports = {
     }, {
         part: 'Your father',
         first_person: false
+    }, {
+        part: 'Your face',
+        first_person: false
     }],
     verbs: [{
         first_person: 'smell like',
@@ -42,7 +45,7 @@ module.exports = {
         third_person: 'consorts with',
         plural: true
     }],
-    objects: ['a hamster', 'elderberries']
+    objects: ['a hamster', 'elderberries', 'a smelly goat']
 };
 
 },{}],3:[function(require,module,exports){
@@ -66,7 +69,7 @@ var R = require('ramda');
 var object_lens = R.lens(R.prop('objects'), R.assoc('object'));
 
 module.exports = R.curry(function (object_index, insult_data) {
-    return R.compose(R.over(object_lens, R.nth(object_index)))(insult_data);
+    return R.compose(R.omit(['objects']), R.over(object_lens, R.nth(object_index)))(insult_data);
 });
 
 },{"ramda":8}],5:[function(require,module,exports){
