@@ -15,6 +15,10 @@ module.exports = {
         {
             part: 'Your face',
             first_person: false
+        },
+        {
+            part: 'Your nose',
+            first_person: false
         }
     ],
     verbs: [
@@ -29,14 +33,27 @@ module.exports = {
             plural: false
         },
         {
-            first_person: 'consort with',
-            third_person: 'consorts with',
+            first_person: 'associate with',
+            third_person: 'associates with',
             plural: true
         }
     ],
     objects: [
-        'a hamster',
-        'elderberries',
-        'a smelly goat'
+        {
+            singular: 'a hamster',
+            plural: 'hamsters'
+        },
+        {
+            singular: 'a fuzzy bunny',
+            plural: 'fuzzy bunnies'
+        },
+        {
+            singular: 'an elderberry',
+            plural: 'elderberries'
+        },
+        {
+            singular: 'a beehive',
+            plural: 'beehives'
+        }
     ]
 }

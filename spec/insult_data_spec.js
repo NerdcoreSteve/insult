@@ -26,20 +26,34 @@ describe('subject', () => {
                     .toEqual(true))
 
     it('has a verbs array, each element of which has the properties:'
-            + '"first_person" (string),'
-            + '"third_person" (string),'
-            + '"plural" (boolean),',
+            + ' "first_person" (string),'
+            + ' "third_person" (string),'
+            + ' "plural" (boolean)',
         () => expect(
             R.all(
                 verb =>
-                    R.all([
-                        R.is(String, verb.first_person),
-                        R.is(String, verb.third_person),
-                        R.is(Boolean, verb.plural)
-                    ]),
-                insult_data.subjects))
+                    R.all(
+                        R.identity,
+                        [
+                            typeof verb.first_person === 'string',
+                            typeof verb.third_person === 'string',
+                            typeof verb.plural === 'boolean',
+                        ]),
+                insult_data.verbs))
                     .toEqual(true))
 
-    it('has an objects array of strings',
-        () => expect(R.all(R.is(String), insult_data.objects)).toEqual(true))
+    it('has an objects array, each element of which has the properties:'
+            + ' "singular" (string),'
+            + ' "plural" (string),',
+        () => expect(
+            R.all(
+                object =>
+                    R.all(
+                        R.identity,
+                        [
+                            typeof object.singular === 'string',
+                            typeof object.plural === 'string'
+                        ]),
+                insult_data.objects))
+                    .toEqual(true))
 })

@@ -1,7 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-//TODO Your mother is elderberries!
 var R = require('ramda');
 var subject = require('./subject.js');
 var verb = require('./verb.js');
@@ -31,6 +30,9 @@ module.exports = {
     }, {
         part: 'Your face',
         first_person: false
+    }, {
+        part: 'Your nose',
+        first_person: false
     }],
     verbs: [{
         first_person: 'smell like',
@@ -41,11 +43,23 @@ module.exports = {
         third_person: 'is',
         plural: false
     }, {
-        first_person: 'consort with',
-        third_person: 'consorts with',
+        first_person: 'associate with',
+        third_person: 'associates with',
         plural: true
     }],
-    objects: ['a hamster', 'elderberries', 'a smelly goat']
+    objects: [{
+        singular: 'a hamster',
+        plural: 'hamsters'
+    }, {
+        singular: 'a fuzzy bunny',
+        plural: 'fuzzy bunnies'
+    }, {
+        singular: 'an elderberry',
+        plural: 'elderberries'
+    }, {
+        singular: 'a beehive',
+        plural: 'beehives'
+    }]
 };
 
 },{}],3:[function(require,module,exports){
@@ -69,7 +83,7 @@ var R = require('ramda');
 var object_lens = R.lens(R.prop('objects'), R.assoc('object'));
 
 module.exports = R.curry(function (object_index, insult_data) {
-    return R.compose(R.omit(['objects']), R.over(object_lens, R.nth(object_index)))(insult_data);
+    return R.compose(R.omit(['objects']), R.over(object_lens, R.compose(R.prop(insult_data.plural ? 'plural' : 'singular'), R.nth(object_index))))(insult_data);
 });
 
 },{"ramda":8}],5:[function(require,module,exports){
