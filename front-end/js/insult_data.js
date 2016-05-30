@@ -153,6 +153,14 @@ module.exports = {
         {
             singular: 'a beehive',
             plural: 'beehives'
+        },
+        {
+            singular: 'a boxelder bug',
+            plural: 'boxelder bugs'
+        },
+        {
+            singular: 'a box elder tree',
+            plural: 'box elder trees'
         }
     ]
 }
