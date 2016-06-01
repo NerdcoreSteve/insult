@@ -122,8 +122,55 @@ module.exports = {
         first_person: 'often have dinner with',
         third_person: 'often has dinner with',
         plural: true
+    }, {
+        first_person: 'look like',
+        third_person: 'looks like',
+        plural: false
+    }, {
+        first_person: 'play backgammon with',
+        third_person: 'plays backgammon with',
+        plural: true
+    }, {
+        first_person: 'manufacture',
+        third_person: 'manufactures',
+        plural: true
+    }, {
+        first_person: 'play Dungeons And Dragons with',
+        third_person: 'plays Dungeons And Dragons with',
+        plural: true
+    }, {
+        first_person: 'bake cakes with',
+        third_person: 'bakes cakes with',
+        plural: true
+    }, {
+        first_person: 'dance with',
+        third_person: 'dances with',
+        plural: true
+    }, {
+        first_person: 'play lazer tag with',
+        third_person: 'plays lazer tag with',
+        plural: true
+    }, {
+        first_person: 'have light saber fights with',
+        third_person: 'has light saber fights with',
+        plural: true
+    }, {
+        first_person: 'secretly conspire with',
+        third_person: 'secretly conspires with',
+        plural: true
+    }, {
+        first_person: 'are fascinated by',
+        third_person: 'is fascinated by',
+        plural: true
+    }, {
+        first_person: 'spend lazy afternoons with',
+        third_person: 'spends lazy afternoons with',
+        plural: true
     }],
     objects: [{
+        singular: 'a clown',
+        plural: 'clowns'
+    }, {
         singular: 'a hamster',
         plural: 'hamsters'
     }, {
@@ -139,8 +186,47 @@ module.exports = {
         singular: 'a boxelder bug',
         plural: 'boxelder bugs'
     }, {
-        singular: 'a box elder tree',
-        plural: 'box elder trees'
+        singular: 'a race car',
+        plural: 'race cars'
+    }, {
+        singular: 'a banana',
+        plural: 'bananas'
+    }, {
+        singular: 'a pineapple',
+        plural: 'pineapples'
+    }, {
+        singular: 'a potato',
+        plural: 'potatoes'
+    }, {
+        singular: 'a grandfather clock',
+        plural: 'grandfather clocks'
+    }, {
+        singular: 'an ice cream sunday',
+        plural: 'ice cream sundays'
+    }, {
+        singular: 'a barrel of pickels',
+        plural: 'barrels of pickels'
+    }, {
+        singular: 'a nerd',
+        plural: 'nerds'
+    }, {
+        singular: 'a juggler',
+        plural: 'jugglers'
+    }, {
+        singular: 'a bookshelf',
+        plural: 'bookshelves'
+    }, {
+        singular: 'a dweeb',
+        plural: 'dweebs'
+    }, {
+        singular: 'a frog',
+        plural: 'frogs'
+    }, {
+        singular: 'a grasshopper',
+        plural: 'grasshoppers'
+    }, {
+        singular: 'a storm trooper cosplayer',
+        plural: 'storm trooper cosplayers'
     }]
 };
 
