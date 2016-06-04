@@ -12,4 +12,5 @@ var insult = (insult_data, subject_index, verb_index, object_index) =>
         subject(subject_index))
             (insult_data)
 
+// eslint-disable-next-line immutable/no-mutation
 module.exports = insult

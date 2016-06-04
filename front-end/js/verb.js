@@ -5,6 +5,7 @@ var verb_lens =
         R.prop('verbs'),
         R.assoc('verb'))
 
+// eslint-disable-next-line immutable/no-mutation
 module.exports = R.curry((verb_index, insult_data) =>
     R.compose(
         R.omit(['verbs']),

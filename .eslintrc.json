@@ -13,7 +13,8 @@
         }
     },
     "plugins": [
-        "react"
+        "react",
+        "immutable"
     ],
     "rules": {
         "indent": [
@@ -32,6 +33,9 @@
             "error",
             "never"
         ],
-        "no-unexpected-multiline": 0
+        "no-unexpected-multiline": 0,
+        "immutable/no-let": 2,
+        "immutable/no-this": 2,
+        "immutable/no-mutation": 2
     }
 }

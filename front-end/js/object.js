@@ -5,6 +5,7 @@ var object_lens =
         R.prop('objects'),
         R.assoc('object'))
 
+// eslint-disable-next-line immutable/no-mutation
 module.exports = R.curry((object_index, insult_data) =>
     R.compose(
         R.omit(['objects']),

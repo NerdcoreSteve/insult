@@ -10,6 +10,7 @@ var first_person_lens =
         R.prop('subjects'),
         R.assoc('first_person'))
 
+// eslint-disable-next-line immutable/no-mutation
 module.exports = R.curry((subject_index, insult_data) =>
     R.compose(
         R.omit(['subjects']),

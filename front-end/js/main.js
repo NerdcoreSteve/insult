@@ -6,6 +6,7 @@ var insult_data = require('./insult_data')
 //TODO keyboard bindings
 
 var new_insult = () =>
+    // eslint-disable-next-line immutable/no-mutation
     document.querySelector('.insult').innerHTML =
         insult(
             insult_data,
@@ -15,4 +16,5 @@ var new_insult = () =>
 
 new_insult()
 
+// eslint-disable-next-line immutable/no-mutation
 document.querySelector('.insult-button').onclick = new_insult
