@@ -239,9 +239,14 @@ var insult_data = require('./insult_data');
 
 //Impure app code
 //TODO keyboard bindings
-document.querySelector('.insult-button').onclick = function () {
+
+var new_insult = function new_insult() {
     return document.querySelector('.insult').innerHTML = insult(insult_data, rand(0, insult_data.subjects.length - 1), rand(0, insult_data.verbs.length - 1), rand(0, insult_data.objects.length - 1));
 };
+
+new_insult();
+
+document.querySelector('.insult-button').onclick = new_insult;
 
 },{"./insult":1,"./insult_data":2,"./rand.js":5}],4:[function(require,module,exports){
 'use strict';
