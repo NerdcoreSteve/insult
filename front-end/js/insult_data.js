@@ -57,11 +57,11 @@ module.exports = {
             first_person: false
         },
         {
-            part: "Your uncle's cousin's brother's hamster",
+            part: 'Your uncle\'s cousin\'s brother\'s hamster',
             first_person: false
         },
         {
-            part: "Your turtle's best friend",
+            part: 'Your turtle\'s best friend',
             first_person: false
         },
         {
